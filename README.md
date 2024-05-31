@@ -18,8 +18,11 @@
   - [Instalación](#instalacion)
     - [Frontend](#front-end)
     - [Backend - Local](#back-end-local)
-    - [Backend - Docker](#back-end-docker)
-- [Errores](#errores)
+    - [Backend - Docker](#back-end-docker)    
+- [Errores y Soluciones](#errores-soluciones)
+    - [API](#api-errores)
+    - [Puppeteer](#puppeteer-errores)
+    - [Docker](#docker-errores)
 - [License](#license)
 
 ## Consideraciones Antes de Empezar
@@ -66,6 +69,7 @@ la variable de entorno AES_KEY debe coincidir tanto en el .env den frontend como
 
 El sistema se ajusta a los requisitos, no se dieron requisitos de RPS (Request per Second)
 ni DAU (Daily Active Users). Sin embargo, una optimización clara a futuro está relacionada con el uso de un set en nuestro servicio de WebScraping para la evicción de notificaciones duplicadas. Esta desición fue tomada para evitar una llamada extra a la base de datos pero, con una cantidad de usuarios muy excesiva, podría llegar a ocupar un espacio en memoria considerable.
+El sistema no especifica un márgen en cuanto al precio máximo a pagar, sólo se pide que sea menor o igual, por lo que puede suceder que si un producto es muy costoso y asignamos un precio muy bajo, el scraper nos devolverá más bien productos relacionados a este.
 
 ## Guía de Instalación
 
@@ -127,6 +131,10 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 ####  Backend: Puesta en marcha en Local
 
+- Asegurarse de que el valor de la variante de entorno PUPPETEER_EXECUTABLE_PATH apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
+
+        Ejemplo: PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
+
 - Dentro de la consola GitBash correr el siguente comando => npm start dev
 
 - El servidor correra en: http://localhost:3001
@@ -149,13 +157,22 @@ para que no haya un conflicto de puertos.
 
 - El servidor correra en: http://localhost:3001
 
+- Nota: Podemos bajar el contenedor de Docker con el comando => bash stop-dev.sh
+    posterior a esto ir a Docker Desktop y eliminar contenedores, imagenees,
+    volumenes y builds para evitar errores y conflictos por caché antes de
+    volver a levantarlo.
+
+- Borrar el 'dist' manualmente puede llegar a generar errores de compilación
+
 ### Todo listo!
 
 - Con el frontend y el backend corriendo dirígete a la url: http://localhost:3000/login
 
 - Empieza a anotar tus deseos 🌠
 
-### Errores
+### Errores y Soluciones
+
+### API
 
 - OOPS_ERROR:
     - código: 500
@@ -177,14 +194,31 @@ para que no haya un conflicto de puertos.
     - código: 500
     - mensaje: 'persistence-exception'
     - causa: Error de interacción con la base de datos
-- ERRORES INOFENSIVOS DE PUPPETEER:
-    - ERROR TimeoutError:
-        - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
-        - El sistema se comporta con idempotencia ante este error, no afecta el flujo
-        - Probabilidad regular
-    - ERROR network:
-        - Error de conexión con la página
-        - Probabilidad muy baja
-        - Solución alternava: Proveerdor de IPs rotatorias
 
-- 🛠️ Soporte: savidoficial09@gmail.com
+### Puppeteer
+
+- ERROR TimeoutError:
+    - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
+    - El sistema se comporta con idempotencia ante este error
+    - Probabilidad regular
+- ERROR network:
+    - Error de conexión con la página
+    - El sistema se comporta con idempotencia ante este error
+    - Probabilidad muy baja
+    - Solución alternava: Proveerdor de IPs rotatorias
+
+### Docker
+
+- Para cualquier error de docker se recomienda limpiar el caché de docker con:
+
+- docker container prune -f
+
+- docker image prune -a -f
+
+- docker network prune -f
+
+- docker volume prune -f
+
+- Como última opción, recomendamos reinstalar el proyecto para solucionar problemas de  migraciones y archivos corruptos, en caso de halle la migracion, podemos hacer lo anterior,y en nuestra consola ejecutar los comandos para correrlo localmente reiniciando las migraciones para que docker se inicialice de cero.
+
+- 🛠️ Soporte: savidoficial09@gmail.com - Whatsapp: +57 3225447725
