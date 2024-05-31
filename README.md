@@ -80,6 +80,9 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
     - usuario: postgres
     - contraseña: password
     - puerto: 5432
+    - Disclaimer: en caso de tener una configuracion diferente
+      asegurate de actualizar la variable de entorno DATABASE_URL
+      encontrada en el archivo .env del proyecto
 
 ### Instalación - Puesta en marcha
 
@@ -89,7 +92,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Abre el proyecto en tu IDE
 
-- En el directorio raíz encontrarás en archivo .env (sólo en el caso del frontend)
+- Añade al directorio raíz del proyecto los archivos .env del frontend adjuntos en el correo electrónico enviado con la prueba técnica
 
 - Corre los siguientes comandos:
 
@@ -104,8 +107,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Abre el proyecto en tu IDE (otra ventana)
 
-- Añade al directorio raíz del proyecto los archivos .env y .env.dev
-       adjuntos en el correo electrónico enviado con la prueba técnica
+- Añade al directorio raíz del proyecto los archivos .env y .env.dev del backend adjuntos en el correo electrónico enviado con la prueba técnica
 
 - Abre una terminal tipo GitBash dentro del IDE
 
