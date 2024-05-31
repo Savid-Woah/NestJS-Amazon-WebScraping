@@ -76,7 +76,7 @@ export class ScrapingService {
 
         await this.page.goto(`https://www.amazon.com/s?k=${productName}`, { timeout: 10000000 })
 
-        await this.page.waitForSelector('.s-result-item')
+        await this.page.waitForSelector('.s-result-item', { timeout: 10000000 })
 
         const products = await this.page.evaluate(() => {
 
