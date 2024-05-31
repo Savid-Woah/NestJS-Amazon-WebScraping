@@ -48,7 +48,7 @@ En vistas de que no fueron provistos los RPS (Request per Second) ni los DAU (Da
 
 ### ChronJob
 
-El servicio de WebScraping es una tarea programada, por defecto se encuentra configurada para ser ejecutada cada **30 segundos**. Este valor fuede ser modificado en el archivo
+El servicio de WebScraping es una tarea programada, por defecto se encuentra configurada para ser ejecutada cada **60 segundos**. Este valor fuede ser modificado en el archivo
 ScrapingService.ts en la linea 39.
 
 ⚠️ **Advertencia**: Asginar un tiempo muy corto puede llegar a incurrir en errores, esto debido a que no estamos aplicando conceptos de concurrencia vía multi-threading, y en algún punto puede que puppeteer encuentre conflictos si no ha terminado una tarea y tiene que comenzar con otra.
@@ -94,14 +94,14 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Abre el proyecto en tu IDE
 
-- Añade al directorio raíz del proyecto los archivos .env del frontend adjuntos en el correo electrónico enviado con la prueba técnica
+- Añade al directorio raíz del proyecto los archivos .env del frontend adjuntos en el correo electrónico enviado con la prueba técnica, es posible que al descargarlo y añadirlo al proyecto no nos salga el archivo con el punto (.) al inicio, simplemente debemos (dentro de nuestro IDE) darle click derecho al archivo - renombrar archivo - y añadir el punto (.) al principio del nombre, con esto nuestro IDE reconocerá el archivo.
 
 - Corre los siguientes comandos:
 
         - npm install
         - npm run dev
 
-- Accede en tu navegador: http://localhost:3000
+- Accede en tu navegador: http://localhost:3000/login
 
 #### Backend: Instalación - Verificación
 
@@ -109,21 +109,21 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Abre el proyecto en tu IDE (otra ventana)
 
-- Añade al directorio raíz del proyecto los archivos .env y .env.dev del backend adjuntos en el correo electrónico enviado con la prueba técnica
+    - Añade al directorio raíz del proyecto los archivos .env y .env.dev del backend adjuntos en el correo electrónico enviado con la prueba técnica, es posible que al descargarlo y añadirlo al proyecto no nos salga el archivo con el punto (.) al inicio, simplemente debemos (dentro de nuestro IDE) darle click derecho al archivo - renombrar archivo - y añadir el punto (.) al principio del nombre, con esto nuestro IDE reconocerá el archivo. también es posible que el primer .env del backend se descargue como  '.env (1)' por lo que asegurese de que quede como .env al momento de añadirlo y renombrarlo en el proyecto. (Esto no ocurre con el .env.dev - solo con el .env original debido a la previa descarga del archivo .env del frontend que se llama igual).
 
 - Abre una terminal tipo GitBash dentro del IDE
 
 - Instala las dependencias de npm => npm install
 
-- Corre los comandos necesarios para las migraciones
+- Corre los comandos necesarios para las migraciones:
 
-- npx prisma generate
+    - npx prisma generate
 
-- npx prisma migrate reset
+    - npx prisma migrate reset (darle a la 'y' para aceptar)
 
-- npx prisma migrate deploy
-        
-- Corre los test => npm test
+    - npx prisma migrate deploy
+            
+    - Corre los test => npm test
 
 ####  Backend: Puesta en marcha en Local
 
@@ -133,7 +133,10 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 #### Backend: Puesta en marcha en Docker
 
-- Inicializa Docker o Abre Docker Desktop (preferiblemente)
+- Asegurate de haber matado la terminar (en caso de haberlo corrido local primero)
+para que no haya un conflicto de puertos.
+
+- Inicializa Docker o Abre Docker Desktop (preferiblemente).
     
 - En la consola de GitBash corre el siguiente comando => bash start-dev.sh
 
@@ -148,7 +151,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 ### Todo listo!
 
-- Con el frontend y el backend corriendo dirígete a la url del frontend: http://localhost:3000
+- Con el frontend y el backend corriendo dirígete a la url: http://localhost:3000/login
 
 - Empieza a anotar tus deseos 🌠
 
@@ -174,3 +177,15 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
     - código: 500
     - mensaje: 'persistence-exception'
     - causa: Error de interacción con la base de datos
+- ERRORES INOFENSIVOS DE PUPPETEER:
+    - ERROR TimeoutError:
+        - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
+        - El sistema se comporta con idempotencia ante este error
+        - Probabilidad (regular - dependiente de la velocidad de internet)
+    - ERROR network:}
+        - Error de conexión con la página
+        - El sistema se comporta con idempotencia ante este error
+        - Probabilidad muy baja
+        - Solución alternava: Proveerdor de IPs rotatorias
+
+- 🛠️ Soporte: savidoficial09@gmail.com
