@@ -10,13 +10,13 @@ export class BackendExceptionFilter implements ExceptionFilter {
 
     async catch(exception: BackendException, host: ArgumentsHost) {
         
-        const context = host.switchToHttp();
-        const request = context.getRequest<Request>();
-        const response = context.getResponse<Response>();
+        const context = host.switchToHttp()
+        const request = context.getRequest<Request>()
+        const response = context.getResponse<Response>()
 
-        const msgCode = exception.msgCode;
-        const lang = exception.getLanguage(request);
-        const message = await this.messageTextResolver.getMessage(msgCode, lang);
+        const msgCode = exception.msgCode
+        const lang = exception.getLanguage(request)
+        const message = await this.messageTextResolver.getMessage(msgCode, lang)
 
         response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -24,6 +24,6 @@ export class BackendExceptionFilter implements ExceptionFilter {
             path: request.url,
             errorCode: msgCode.code,
             message
-        });
+        })
     }
 }

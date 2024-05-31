@@ -10,7 +10,7 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post('register')
-    public async register(@Body() {username, password, role}: {username: string, password: string, role: Role}) {
+    public async register(@Body() {username, password, role}: {username: string, password: string, role: Role}): Promise<{}> {
         const userRegistered = await this.userService.register({username, password, role})
         const userDTO = {password, ...userRegistered}
         return ResponseHandler.generateResponse(userDTO, HttpStatus.CREATED, Message.USER_REGISTERED)

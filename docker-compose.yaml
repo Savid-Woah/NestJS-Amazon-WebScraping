@@ -22,5 +22,3 @@ services:
       - '3001:3001'
     depends_on:
       - postgres_db
-    # volumes:
-    #   - ./src:/app/src

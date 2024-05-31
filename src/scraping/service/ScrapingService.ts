@@ -114,10 +114,14 @@ export class ScrapingService {
             if (!isNaN(price)) {
 
                 if (new Decimal(price).lte(productWithDetails.price)) {
+
                     const productId = productWithDetails.productId
+                    
                     if (processedProductIds.has(productId)) return
-                    processedProductIds.add(productId)
+                                        
                     await this.handleNotifications(product, productId, userId)
+
+                    processedProductIds.add(productId)
                 }
             }
         }
