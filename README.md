@@ -11,6 +11,7 @@
   - [Extensiones](#extensiones)
   - [Testing](#testing)
   - [ChronJob](#chron-job)
+  - [Seguridad](#seguridad)
   - [Optimizaciones](#optimizaciones)
 - [Guía de instalación](#getting-started)
   - [Pre-requisitos](#pre-requisitos)
@@ -18,7 +19,6 @@
     - [Frontend](#front-end)
     - [Backend - Local](#back-end-local)
     - [Backend - Docker](#back-end-docker)
-- [Uso](#uso)
 - [Errores](#errores)
 - [License](#license)
 
@@ -53,6 +53,13 @@ ScrapingService.ts en la linea 39.
 
 ⚠️ **Advertencia**: Asginar un tiempo muy corto puede llegar a incurrir en errores, esto debido a que no estamos aplicando conceptos de concurrencia vía multi-threading, y en algún punto puede que puppeteer encuentre conflictos si no ha terminado una tarea y tiene que comenzar con otra.
 
+### Seguridad
+
+El sistema cuenta con 2 sistemas de autenticación, la nativa integrada por el sistema
+y la otra tipo oAuth2.0 con Google y/o Facebook
+
+El sistema cumple con los estándares de encriptación AES (Advanced Encryption Standard)
+
 ### Optimizaciones
 
 El sistema se ajusta a los requisitos, no se dieron requisitos de RPS (Request per Second)
@@ -69,22 +76,27 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 - Node.js v20.12.0
 - npm (Node.js package manager)
 - Docker - (preferiblemente versión de escritorio: https://docs.docker.com/engine/install/ )
+- PostgreSQL (en caso de querer correr el backend local):
+    - usuario: postgres
+    - contraseña: password
+    - puerto: 5432
 
 ### Instalación - Puesta en marcha
 
 #### Frontend: Instalación - Puesta en marcha
 
-    1. Clona el repositorio: git clone https://github.com/Savid-Woah/NextJS-Amazon-WebScraping
+- Clona el repositorio: git clone https://github.com/Savid-Woah/NextJS-Amazon-WebScraping
 
-    2. Abre el proyecto en tu IDE
+- Abre el proyecto en tu IDE
 
-    3. Corre los siguientes comandos:
+- En el directorio raíz encontrarás en archivo .env (sólo en el caso del frontend)
+
+- Corre los siguientes comandos:
 
         - npm install
         - npm run dev
 
-    4. Accede en tu navegador: http://localhost:3000
-
+- Accede en tu navegador: http://localhost:3000
 
 #### Backend: Instalación - Verificación
 
@@ -98,6 +110,14 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 - Abre una terminal tipo GitBash dentro del IDE
 
 - Instala las dependencias de npm => npm install
+
+- Corre los comandos necesarios para las migraciones
+
+- npx prisma generate
+
+- npx prisma migrate reset
+
+- npx prisma migrate deploy
         
 - Corre los test => npm test
 
@@ -122,10 +142,31 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - El servidor correra en: http://localhost:3001
 
-- Nota: Puedes finalizar el contenedor de Docker con el comando => bash stop-dev.sh
-
 ### Todo listo!
 
 - Con el frontend y el backend corriendo dirígete a la url del frontend: http://localhost:3000
 
 - Empieza a anotar tus deseos 🌠
+
+### Errores
+
+- OOPS_ERROR:
+    - código: 500
+    - mensaje: 'oops-error'
+    - causa: Error de servidor
+- INVALID_CREDENTIALS:
+    - código: 401
+    - mensaje: 'invalid-credentials'
+    - causa: Credenciales inválidas o inexistentes
+- USER_NOT_FOUND:
+    - código: 404
+    - mensaje: 'user-not-found'
+    - causa: No se encontró el usuario con el id especificado
+- PRODUCT_NOT_FOUND:
+    - código: 404
+    - mensaje: 'product-not-found'
+    - causa: No se encontró el producto con el id especificado
+- PERSISTENCE_EXCEPTION:
+    - código: 500
+    - mensaje: 'persistence-exception'
+    - causa: Error de interacción con la base de datos
