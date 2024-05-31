@@ -66,6 +66,7 @@ la variable de entorno AES_KEY debe coincidir tanto en el .env den frontend como
 
 El sistema se ajusta a los requisitos, no se dieron requisitos de RPS (Request per Second)
 ni DAU (Daily Active Users). Sin embargo, una optimización clara a futuro está relacionada con el uso de un set en nuestro servicio de WebScraping para la evicción de notificaciones duplicadas. Esta desición fue tomada para evitar una llamada extra a la base de datos pero, con una cantidad de usuarios muy excesiva, podría llegar a ocupar un espacio en memoria considerable.
+El sistema no especifica un márgen en cuanto al precio máximo a pagar, sólo se pide que sea menor o igual, por lo que puede suceder que si un producto es muy costoso y asignamos un precio muy bajo, el scraper nos devolverá más bien productos relacionados a este.
 
 ## Guía de Instalación
 
