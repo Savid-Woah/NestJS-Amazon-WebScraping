@@ -180,11 +180,10 @@ para que no haya un conflicto de puertos.
 - ERRORES INOFENSIVOS DE PUPPETEER:
     - ERROR TimeoutError:
         - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
-        - El sistema se comporta con idempotencia ante este error
+        - El sistema se comporta con idempotencia ante este error, no afecta el flujo
         - Probabilidad regular
-    - ERROR network:}
+    - ERROR network:
         - Error de conexión con la página
-        - El sistema se comporta con idempotencia ante este error
         - Probabilidad muy baja
         - Solución alternava: Proveerdor de IPs rotatorias
 
