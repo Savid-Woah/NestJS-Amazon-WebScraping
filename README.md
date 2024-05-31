@@ -18,8 +18,11 @@
   - [Instalación](#instalacion)
     - [Frontend](#front-end)
     - [Backend - Local](#back-end-local)
-    - [Backend - Docker](#back-end-docker)
-- [Errores](#errores)
+    - [Backend - Docker](#back-end-docker)    
+- [Errores y Soluciones](#errores-soluciones)
+    - [API](#api-errores)
+    - [Puppeteer](#puppeteer-errores)
+    - [Docker](#docker-errores)
 - [License](#license)
 
 ## Consideraciones Antes de Empezar
@@ -167,7 +170,9 @@ para que no haya un conflicto de puertos.
 
 - Empieza a anotar tus deseos 🌠
 
-### Errores
+### Errores y Soluciones
+
+### API
 
 - OOPS_ERROR:
     - código: 500
@@ -189,15 +194,31 @@ para que no haya un conflicto de puertos.
     - código: 500
     - mensaje: 'persistence-exception'
     - causa: Error de interacción con la base de datos
-- ERRORES INOFENSIVOS DE PUPPETEER:
-    - ERROR TimeoutError:
-        - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
-        - El sistema se comporta con idempotencia ante este error
-        - Probabilidad regular
-    - ERROR network:}
-        - Error de conexión con la página
-        - El sistema se comporta con idempotencia ante este error
-        - Probabilidad muy baja
-        - Solución alternava: Proveerdor de IPs rotatorias
 
-- 🛠️ Soporte: savidoficial09@gmail.com
+### Puppeteer
+
+- ERROR TimeoutError:
+    - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
+    - El sistema se comporta con idempotencia ante este error
+    - Probabilidad regular
+- ERROR network:
+    - Error de conexión con la página
+    - El sistema se comporta con idempotencia ante este error
+    - Probabilidad muy baja
+    - Solución alternava: Proveerdor de IPs rotatorias
+
+### Docker
+
+- Para cualquier error de docker se recomienda limpiar el caché de docker con:
+
+- docker container prune -f
+
+- docker image prune -a -f
+
+- docker network prune -f
+
+- docker volume prune -f
+
+- Como última opción, recomendamos reinstalar el proyecto para solucionar problemas de  migraciones y archivos corruptos, en caso de halle la migracion, podemos hacer lo anterior,y en nuestra consola ejecutar los comandos para correrlo localmente reiniciando las migraciones para que docker se inicialice de cero.
+
+- 🛠️ Soporte: savidoficial09@gmail.com - Whatsapp: +57 3225447725
