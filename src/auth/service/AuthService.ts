@@ -27,8 +27,12 @@ export class AuthService {
         const passwordsMatch = await this.encryptionService.comparePasswords(password, userOptional.password);
     
         if (passwordsMatch) {
-            const { password, ...user } = userOptional;
-            return this.jwtService.sign(user)
+
+            const { password, ...user } = userOptional
+        
+            const jwt = this.jwtService.sign(user)
+            return this.encryptionService.encrypt(jwt)
+        
         } else {
             throw new BackendException(MsgCode.INVALID_CREDENTIALS)
         }
@@ -42,7 +46,7 @@ export class AuthService {
         if(!user) user = await this.userService.register({username: username, password: '', role: Role.USER})
 
         const { password, ...userDTO } = user
-        
-        return this.jwtService.sign(userDTO)
+        const jwt = this.jwtService.sign(userDTO)
+        return this.encryptionService.encrypt(jwt)
     }
 }

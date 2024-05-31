@@ -35,6 +35,7 @@ describe('AuthService', () => {
                     provide: EncryptionService,
                     useValue: {
                         comparePasswords: jest.fn(),
+                        encrypt: jest.fn()
                     },
                 },
             ],
@@ -73,6 +74,7 @@ describe('AuthService', () => {
             jest.spyOn(userService, 'getUserByUsername').mockResolvedValue(user)
             jest.spyOn(encryptionService, 'comparePasswords').mockResolvedValue(true)
             jest.spyOn(jwtService, 'sign').mockReturnValue('signedToken')
+            jest.spyOn(encryptionService, 'encrypt').mockReturnValue('encryptedToken')
 
             // When
             const result = await authService.validateUser(loginRequest)
@@ -80,8 +82,8 @@ describe('AuthService', () => {
             // Then
             expect(userService.getUserByUsername).toHaveBeenCalledWith(loginRequest.username)
             expect(encryptionService.comparePasswords).toHaveBeenCalledWith(loginRequest.password, user.password)
-            expect(result).not.toBeNull();
-            expect(result).toEqual('signedToken');
+            expect(result).not.toBeNull()
+            expect(result).toEqual('encryptedToken')
         })
 
         it('should throw BackendException if credentials are invalid', async () => {
@@ -118,8 +120,9 @@ describe('AuthService', () => {
                 roles: [Role.USER]
             };
 
-            jest.spyOn(userService, 'getUserByUsername').mockResolvedValue(user);
-            jest.spyOn(jwtService, 'sign').mockReturnValue('signedToken');
+            jest.spyOn(userService, 'getUserByUsername').mockResolvedValue(user)
+            jest.spyOn(jwtService, 'sign').mockReturnValue('signedToken')
+            jest.spyOn(encryptionService, 'encrypt').mockReturnValue('encryptedToken')
 
             // When
             const result = await authService.validateOAuthUser(oauthRequest);
@@ -133,7 +136,7 @@ describe('AuthService', () => {
                 roles: user.roles
             })
 
-            expect(result).toEqual('signedToken')
+            expect(result).toEqual('encryptedToken')
         })
 
         it('should save a new user and return a signed JWT if the user does not exist', async () => {
@@ -148,15 +151,16 @@ describe('AuthService', () => {
                 roles: [Role.USER]
             }
 
-            jest.spyOn(userService, 'getUserByUsername').mockResolvedValue(null);
-            jest.spyOn(userService, 'register').mockResolvedValue(savedUser);
-            jest.spyOn(jwtService, 'sign').mockReturnValue('signedToken');
+            jest.spyOn(userService, 'getUserByUsername').mockResolvedValue(null)
+            jest.spyOn(userService, 'register').mockResolvedValue(savedUser)
+            jest.spyOn(jwtService, 'sign').mockReturnValue('signedToken')
+            jest.spyOn(encryptionService, 'encrypt').mockReturnValue('encryptedToken')
 
             // When
-            const result = await authService.validateOAuthUser(oauthRequest);
+            const result = await authService.validateOAuthUser(oauthRequest)
 
             // Then
-            expect(userService.getUserByUsername).toHaveBeenCalledWith(oauthRequest.username);
+            expect(userService.getUserByUsername).toHaveBeenCalledWith(oauthRequest.username)
             expect(userService.register).toHaveBeenCalledWith({
                 username: oauthRequest.username,
                 password: '',
@@ -169,7 +173,7 @@ describe('AuthService', () => {
                 roles: savedUser.roles
             })
 
-            expect(result).toEqual('signedToken')
+            expect(result).toEqual('encryptedToken')
         })
     })
 })
