@@ -181,7 +181,7 @@ para que no haya un conflicto de puertos.
     - ERROR TimeoutError:
         - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
         - El sistema se comporta con idempotencia ante este error
-        - Probabilidad (regular - dependiente de la velocidad de internet)
+        - Probabilidad regular
     - ERROR network:}
         - Error de conexión con la página
         - El sistema se comporta con idempotencia ante este error
