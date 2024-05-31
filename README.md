@@ -155,6 +155,11 @@ para que no haya un conflicto de puertos.
 - El servidor correra en: http://localhost:3001
 
 - Nota: Podemos bajar el contenedor de Docker con el comando => bash stop-dev.sh
+    posterior a esto ir a Docker Desktop y eliminar contenedores, imagenees,
+    volumenes y builds para evitar errores y conflictos por caché antes de
+    volver a levantarlo.
+
+- Borrar el 'dist' manualmente puede llegar a generar errores de compilación
 
 ### Todo listo!
 
