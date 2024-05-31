@@ -1,73 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# My Wishlist 💌
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+🕸️ Webscraping en tiempo real - TypeScript | NestJS | Prisma | PostgreSQL | Jest | NextJS
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+🎥 Youtube Video: https://www.youtube.com/watch?v=AZaGqNDK9UM
 
-## Description
+## Tabla de Contenido
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Consideraciones Antes de Empezar](#antes-de-empezar)
+  - [IDE](#ide)
+  - [Extensiones](#extensiones)
+  - [Testing](#testing)
+  - [ChronJob](#chron-job)
+  - [Optimizaciones](#optimizaciones)
+- [Guía de instalación](#getting-started)
+  - [Pre-requisitos](#pre-requisitos)
+  - [Instalación](#instalacion)
+    - [Frontend](#front-end)
+    - [Backend - Local](#back-end-local)
+    - [Backend - Docker](#back-end-docker)
+- [Uso](#uso)
+- [Errores](#errores)
+- [License](#license)
 
-## Installation
+## Consideraciones Antes de Empezar
 
-```bash
-$ npm install
-```
+Procedo a dar aclaraciones sobre:
 
-## Running the app
+### IDE
 
-```bash
-# development
-$ npm run start
+El IDE utilizado para este proyecto fue Visual Studio Code
 
-# watch mode
-$ npm run start:dev
+### Extensiones
 
-# production mode
-$ npm run start:prod
-```
+**NO se hizo uso de ESLINT ni de PRETTIER**. Esta vez opté por seguir las buenas
+practicas de Clean Code (Robert C. Martin), me gusta encargarme de la estética de mi código manualmente.
 
-## Test
+**Instrucción**: Deshabilite las extensiones mencionadas arriba y elimine los archivos
+relacionados a ellas en caso de hallarlos dentro del directorio raíz del proyecto.
 
-```bash
-# unit tests
-$ npm run test
+**Disclaimer**: Esto lo hago en proyectos personales, a nivel corporativo me ajusto a los estándares por los que opte el equipo.
 
-# e2e tests
-$ npm run test:e2e
+### Testing
 
-# test coverage
-$ npm run test:cov
-```
+El MCDC Coverage no fue especificado. Sin embargo, las pruebas unitarias necesarias fueron incluidas, haciendo uso de Jest y de prácticas de TDD (Test Driven Development). 
 
-## Support
+En vistas de que no fueron provistos los RPS (Request per Second) ni los DAU (Daily Active Users), las pruebas de performance no fueron realizadas.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### ChronJob
 
-## Stay in touch
+El servicio de WebScraping es una tarea programada, por defecto se encuentra configurada para ser ejecutada cada **30 segundos**. Este valor fuede ser modificado en el archivo
+ScrapingService.ts en la linea 39.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+⚠️ **Advertencia**: Asginar un tiempo muy corto puede llegar a incurrir en errores, esto debido a que no estamos aplicando conceptos de concurrencia vía multi-threading, y en algún punto puede que puppeteer encuentre conflictos si no ha terminado una tarea y tiene que comenzar con otra.
 
-## License
+### Optimizaciones
 
-Nest is [MIT licensed](LICENSE).
+El sistema se ajusta a los requisitos, no se dieron requisitos de RPS (Request per Second)
+ni DAU (Daily Active Users). Sin embargo, una optimización clara a futuro está relacionada con el uso de un set en nuestro servicio de WebScraping para la evicción de notificaciones duplicadas. Esta desición fue tomada para evitar una llamada extra a la base de datos pero, con una cantidad de usuarios muy excesiva, podría llegar a ocupar un espacio en memoria considerable.
+
+## Guía de Instalación
+
+A continuación las intrucciones para poner el proyecto en marcha.
+
+### Pre-Requisitos
+
+Asegurate de tener instalado lo siguiente en tu entorno local:
+- IDE
+- Node.js v20.12.0
+- npm (Node.js package manager)
+- Docker - (preferiblemente versión de escritorio: https://docs.docker.com/engine/install/ )
+
+### Instalación - Puesta en marcha
+
+#### Frontend: Instalación - Puesta en marcha
+
+    1. Clona el repositorio: git clone https://github.com/Savid-Woah/NextJS-Amazon-WebScraping
+
+    2. Abre el proyecto en tu IDE
+
+    3. Corre los siguientes comandos:
+
+        - npm install
+        - npm run dev
+
+    4. Accede en tu navegador: http://localhost:3000
+
+
+#### Backend: Instalación - Verificación
+
+- Clona el repositorio: git clone https://github.com/Savid-Woah/NestJS-Amazon-WebScraping
+
+- Abre el proyecto en tu IDE (otra ventana)
+
+- Añade al directorio raíz del proyecto los archivos .env y .env.dev
+       adjuntos en el correo electrónico enviado con la prueba técnica
+
+- Abre una terminal tipo GitBash dentro del IDE
+
+- Instala las dependencias de npm => npm install
+        
+- Corre los test => npm test
+
+####  Backend: Puesta en marcha en Local
+
+- Dentro de la consola GitBash correr el siguente comando => npm start dev
+
+- El servidor correra en: http://localhost:3001
+
+#### Backend: Puesta en marcha en Docker
+
+- Inicializa Docker o Abre Docker Desktop (preferiblemente)
+    
+- En la consola de GitBash corre el siguiente comando => bash start-dev.sh
+
+- El backend se encargará de levantar el contenedor de Docker con el servidor
+
+    Nota: Este proceso puede tardar varios minutos, sugerimos revisar el estado 
+    de los contenedores en la interfaz gráfica de Docker Desktop.
+
+    ... una vez levantado el contenedor ...
+
+- El servidor correra en: http://localhost:3001
+
+- Nota: Puedes finalizar el contenedor de Docker con el comando => bash stop-dev.sh
+
+### Todo listo!
+
+- Con el frontend y el backend corriendo dirígete a la url del frontend: http://localhost:3000
+
+- Empieza a anotar tus deseos 🌠
