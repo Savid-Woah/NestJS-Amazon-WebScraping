@@ -59,6 +59,8 @@ El sistema cuenta con 2 sistemas de autenticación, la nativa integrada por el s
 y la otra tipo oAuth2.0 con Google y/o Facebook
 
 El sistema cumple con los estándares de encriptación AES (Advanced Encryption Standard)
+la variable de entorno AES_KEY debe coincidir tanto en el .env den frontend como en el
+.env (o .env.dev) del backend
 
 ### Optimizaciones
 
