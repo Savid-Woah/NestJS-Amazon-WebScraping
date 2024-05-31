@@ -1,0 +1,9 @@
+{
+    "oops-error": "Oops... something went wrong :(",
+    "invalid-credentials": "Invalid credentials",
+    "persistence-exception": "There was an error interacting with the database",
+    "user-not-found": "User not found",
+    "user-already-exists": "User already exists",
+    "product-not-found": "Product not found",
+    "product-already-exists": "Product already exists"
+}

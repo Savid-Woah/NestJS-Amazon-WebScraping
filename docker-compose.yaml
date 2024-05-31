@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:14
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-docker-postgres
+    env_file:
+      - ${ENV_FILE}
+    ports:
+      - '3001:3001'
+    depends_on:
+      - postgres_db
+    # volumes:
+    #   - ./src:/app/src

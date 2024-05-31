@@ -1,0 +1,9 @@
+{
+    "oops-error": "Oups... quelque chose a mal tourné :(",
+    "invalid-credentials": "Identifiants invalides",
+    "persistence-exception": "Erreur d'interaction avec la base de données",
+    "user-not-found": "Utilisateur non trouvé",
+    "user-already-exists": "L'utilisateur existe déjà",
+    "product-not-found": "Produit non trouvé",
+    "product-already-exists": "Le produit existe déjà"
+}
