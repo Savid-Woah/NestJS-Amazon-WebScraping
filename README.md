@@ -127,6 +127,11 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 ####  Backend: Puesta en marcha en Local
 
+- Asegurarse de que el valor de la variante de entorno PUPPETEER_EXECUTABLE_PATH
+apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
+
+Ejemplo: PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
+
 - Dentro de la consola GitBash correr el siguente comando => npm start dev
 
 - El servidor correra en: http://localhost:3001
@@ -148,6 +153,8 @@ para que no haya un conflicto de puertos.
     ... una vez levantado el contenedor ...
 
 - El servidor correra en: http://localhost:3001
+
+- Nota: Podemos bajar el contenedor de Docker con el comando => bash stop-dev.sh
 
 ### Todo listo!
 
@@ -180,10 +187,11 @@ para que no haya un conflicto de puertos.
 - ERRORES INOFENSIVOS DE PUPPETEER:
     - ERROR TimeoutError:
         - Waiting for selector `.s-result-item` failed: Waiting failed: 30000ms exceeded
-        - El sistema se comporta con idempotencia ante este error, no afecta el flujo
+        - El sistema se comporta con idempotencia ante este error
         - Probabilidad regular
-    - ERROR network:
+    - ERROR network:}
         - Error de conexión con la página
+        - El sistema se comporta con idempotencia ante este error
         - Probabilidad muy baja
         - Solución alternava: Proveerdor de IPs rotatorias
 
