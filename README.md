@@ -133,6 +133,8 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Dentro del archivo .env asegurarse de que el valor de la variable PUPPETEER_EXECUTABLE_PATH apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
 
+  Nota: Debe ser el archivo .env original, no el .env.dev | Esto ya que el original es el utilizado para el entorno local
+
         Ejemplo: PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 - Dentro de la consola GitBash correr el siguente comando => npm start dev
@@ -141,7 +143,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 #### Backend: Puesta en marcha en Docker
 
-- Asegurate de haber matado la terminar (en caso de haberlo corrido local primero)
+- Asegurate de haber teminado el proceso del backend en la consola (en caso de haberlo corrido local primero)
 para que no haya un conflicto de puertos.
 
 - Inicializa Docker o Abre Docker Desktop (preferiblemente).
@@ -209,15 +211,15 @@ para que no haya un conflicto de puertos.
 
 ### Docker
 
-- Para cualquier error de docker se recomienda limpiar el caché de docker con:
-
-- docker container prune -f
-
-- docker image prune -a -f
-
-- docker network prune -f
-
-- docker volume prune -f
+- ERROR Wsl 2:
+  - Esto indica que la máquina que intenta ejecutar Docker no tiene instalado un distribuidor de Linux y/o no tiene activada la virtualización en su BIOS
+  - Esto debe ser solucionado para poder ejecutar Docker Desktop - src: https://docs.docker.com/desktop/wsl/
+- ERROR GENÉRICO:
+  - Para cualquier otro error relacionado con la integración de Docker con el backend, es recomendado limpiar el caché de Docker corriendo los siguientes comandos:
+    - docker container prune -f
+    - docker image prune -a -f
+    - docker network prune -f
+    - docker volume prune -f
 
 - Como última opción, recomendamos reinstalar el proyecto para solucionar problemas de  migraciones y archivos corruptos, en caso de halle la migracion, podemos hacer lo anterior,y en nuestra consola ejecutar los comandos para correrlo localmente reiniciando las migraciones para que docker se inicialice de cero.
 
