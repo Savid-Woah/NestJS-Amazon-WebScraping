@@ -131,7 +131,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 ####  Backend: Puesta en marcha en Local
 
-- Asegurarse de que el valor de la variante de entorno PUPPETEER_EXECUTABLE_PATH apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
+- Dentro del archivo .env asegurarse de que el valor de la variable PUPPETEER_EXECUTABLE_PATH apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
 
         Ejemplo: PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
 
