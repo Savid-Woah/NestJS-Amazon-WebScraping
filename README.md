@@ -148,7 +148,7 @@ para que no haya un conflicto de puertos.
 
 - Inicializa Docker o Abre Docker Desktop (preferiblemente).
     
-- En la consola de GitBash corre el siguiente comando => bash start-dev.sh
+- En la consola de GitBash corre el siguiente comando => bash start-prod.sh
 
 - El backend se encargará de levantar el contenedor de Docker con el servidor
 
@@ -159,7 +159,7 @@ para que no haya un conflicto de puertos.
 
 - El servidor correra en: http://localhost:3001
 
-- Nota: Podemos bajar el contenedor de Docker con el comando => bash stop-dev.sh
+- Nota: Podemos bajar el contenedor de Docker con el comando => bash stop-prod.sh
     posterior a esto ir a Docker Desktop y eliminar contenedores, imagenees,
     volumenes y builds para evitar errores y conflictos por caché antes de
     volver a levantarlo.
