@@ -63,7 +63,7 @@ y la otra tipo oAuth2.0 con Google y/o Facebook
 
 El sistema cumple con los estándares de encriptación AES (Advanced Encryption Standard)
 la variable de entorno AES_KEY debe coincidir tanto en el .env den frontend como en el
-.env (o .env.dev) del backend
+.env (o .env.prod) del backend
 
 ### Optimizaciones
 
@@ -113,7 +113,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Abre el proyecto en tu IDE (otra ventana)
 
-    - Añade al directorio raíz del proyecto los archivos .env y .env.dev del backend adjuntos en el correo electrónico enviado con la prueba técnica, es posible que al descargarlo y añadirlo al proyecto no nos salga el archivo con el punto (.) al inicio, simplemente debemos (dentro de nuestro IDE) darle click derecho al archivo - renombrar archivo - y añadir el punto (.) al principio del nombre, con esto nuestro IDE reconocerá el archivo. también es posible que el primer .env del backend se descargue como  '.env (1)' por lo que asegurese de que quede como .env al momento de añadirlo y renombrarlo en el proyecto. (Esto no ocurre con el .env.dev - solo con el .env original debido a la previa descarga del archivo .env del frontend que se llama igual).
+    - Añade al directorio raíz del proyecto los archivos .env y .env.prod del backend adjuntos en el correo electrónico enviado con la prueba técnica, es posible que al descargarlo y añadirlo al proyecto no nos salga el archivo con el punto (.) al inicio, simplemente debemos (dentro de nuestro IDE) darle click derecho al archivo - renombrar archivo - y añadir el punto (.) al principio del nombre, con esto nuestro IDE reconocerá el archivo. también es posible que el primer .env del backend se descargue como  '.env (1)' por lo que asegurese de que quede como .env al momento de añadirlo y renombrarlo en el proyecto. (Esto no ocurre con el .env.prod - solo con el .env original debido a la previa descarga del archivo .env del frontend que se llama igual).
 
 - Abre una terminal tipo GitBash dentro del IDE
 
@@ -133,7 +133,7 @@ Asegurate de tener instalado lo siguiente en tu entorno local:
 
 - Dentro del archivo .env asegurarse de que el valor de la variable PUPPETEER_EXECUTABLE_PATH apunte a la ruta en donde se encuentra el archivo ejecutable de nuestro navegador.
 
-  Nota: Debe ser el archivo .env original, no el .env.dev | Esto ya que el original es el utilizado para el entorno local
+  Nota: Debe ser el archivo .env original, no el .env.prod | Esto ya que el original es el utilizado para el entorno local
 
         Ejemplo: PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
 
