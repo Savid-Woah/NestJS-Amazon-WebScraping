@@ -1,35 +1,67 @@
-FROM node:20.12.0
+FROM node:20-alpine AS builder
 
-RUN useradd -u 1001 appuser
-
-RUN mkdir -p /home/appuser/app && chown -R appuser:appuser /home/appuser
-
-WORKDIR /home/appuser/app
+WORKDIR /app
 
 COPY package*.json ./
 
+COPY prisma ./prisma/
+
 RUN npm install -g npm@latest && npm cache clean --force
-
-RUN apt-get update && apt-get install -y chromium
-
 RUN npm install -g @nestjs/cli
-
 RUN npm install --save-dev @types/node
-
 RUN npm install prisma --save-dev
 
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+RUN apk update && apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
+COPY wait-for-postgres.sh /usr/local/bin/wait-for-postgres.sh
+RUN chmod +x /usr/local/bin/wait-for-postgres.sh
 
 COPY . .
 
-COPY docker-bootstrap.sh .
+RUN npm run build
 
-RUN chown -R appuser:appuser /home/appuser/app && chmod +x ./docker-bootstrap.sh
+# -------------------------------------------------------------
 
-RUN npx prisma generate
+FROM node:20-alpine
+
+WORKDIR /app
+
+ARG USERNAME=appuser
+ARG USER_UID=1001
+ARG USER_GID=1001
+
+RUN addgroup -g $USER_GID $USERNAME \
+    && adduser -u $USER_UID -G $USERNAME -D $USERNAME \
+    && apk update \
+    && apk add --no-cache sudo \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && chown -R $USERNAME:$USERNAME /app \
+    && chmod -R 755 /app
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /usr/local/bin/wait-for-postgres.sh /usr/local/bin/wait-for-postgres.sh
+RUN chmod +x /usr/local/bin/wait-for-postgres.sh
 
 EXPOSE 3001
 
 USER appuser
 
-ENTRYPOINT ["sh", "./docker-bootstrap.sh"]
+ENTRYPOINT ["wait-for-postgres.sh"]
+
+CMD ["npm", "run", "start:migrate:prod"]

@@ -1,9 +1,23 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  postgres_db:
-    container_name: postgres_db
-    image: postgres:14
+  
+  nest-api:
+    container_name: nest-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    depends_on:
+      - postgres
+    env_file:
+      - ${ENV_FILE}
+  
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
     ports:
       - '5432:5432'
     environment:
@@ -11,21 +25,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nest-docker-postgres
-    env_file:
-      - ${ENV_FILE}
-    ports:
-      - '3001:3001'
-    depends_on:
-      - postgres_db
-    volumes:
-      - ./src:/app/src
+      - postgres:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres:
+    name: nest-db
